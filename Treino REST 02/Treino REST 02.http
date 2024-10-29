@@ -1,6 +1,0 @@
-@Treino_REST_02_HostAddress = http://localhost:5072
-
-GET {{Treino_REST_02_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
