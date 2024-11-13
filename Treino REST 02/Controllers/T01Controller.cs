@@ -25,14 +25,32 @@ namespace Treino_REST_02.Controllers
     
         public ListaUFController()
         {
-            UFs.Add(new UF { Id = 1, Nome = "RJ", Capital = "Rio de Janeiro" });
-            UFs.Add(new UF { Id = 2, Nome = "SP", Capital = "São Paulo" });
-            UFs.Add(new UF { Id = 3, Nome = "BA", Capital = "Salvador" });
+            if (UFs.Count == 0)
+            {
+                UFs.Add(new UF { Id = 1, Nome = "RJ", Capital = "Rio de Janeiro" });
+                UFs.Add(new UF { Id = 2, Nome = "SP", Capital = "São Paulo" });
+                UFs.Add(new UF { Id = 3, Nome = "BA", Capital = "Salvador" });
+            }
         }
 
-        [HttpGet(Name = "Divisão")]
+        [HttpGet(Name = "Listagem")]
         public IEnumerable<UF> ListaUF()
         {
+            return UFs;
+        }
+
+        [HttpPost(Name ="Adiciona")]
+        public IEnumerable<UF> AdicionaUF(UF NovaUF)
+        {
+            UFs.Add(NovaUF);
+            return UFs;
+        }
+
+        [HttpDelete(Name ="EliminaUF")]
+        public IEnumerable<UF> EliminaUF(int DelId)
+        {
+            UF result = UFs.Find(x => x.Id == DelId);
+            UFs.Remove(result);
             return UFs;
         }
     }
