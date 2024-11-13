@@ -21,15 +21,19 @@ namespace Treino_REST_02.Controllers
     public class ListaUFController : ControllerBase
     {
 
+        static List<UF> UFs = new List<UF>();
+    
+        public ListaUFController()
+        {
+            UFs.Add(new UF { Id = 1, Nome = "RJ", Capital = "Rio de Janeiro" });
+            UFs.Add(new UF { Id = 2, Nome = "SP", Capital = "São Paulo" });
+            UFs.Add(new UF { Id = 3, Nome = "BA", Capital = "Salvador" });
+        }
+
         [HttpGet(Name = "Divisão")]
         public IEnumerable<UF> ListaUF()
         {
-            return new List<UF>
-            {
-                new UF {Id = 1, Nome = "RJ", Capital = "Rio de Janeiro" },
-                new UF {Id = 2, Nome = "SP", Capital = "São Paulo" },
-                new UF {Id = 3, Nome = "BA", Capital = "Salvador" }
-            };
+            return UFs;
         }
     }
 }
