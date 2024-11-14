@@ -9,9 +9,10 @@ namespace Treino_REST_02.Controllers
     {
 
         [HttpPost(Name = "Soma")]
-        public int Soma(int A, int B) 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<int> Soma(int A, int B) 
         {
-            return A + B;
+            return Ok(A + B);
         }
 
     }
@@ -34,24 +35,55 @@ namespace Treino_REST_02.Controllers
         }
 
         [HttpGet(Name = "Listagem")]
-        public IEnumerable<UF> ListaUF()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<UF>> ListaUF()
         {
-            return UFs;
+            return Ok(UFs);
+        }
+
+        [HttpGet("{IdUF:int}", Name = "MostraUF")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<UF> MostraUF(int IdUF)
+        {
+            if (IdUF == 0)
+            {
+                return BadRequest();
+            }
+            UF result = UFs.Find(x => x.Id == IdUF);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpPost(Name ="Adiciona")]
-        public IEnumerable<UF> AdicionaUF(UF NovaUF)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<UF>> AdicionaUF(UF NovaUF)
         {
             UFs.Add(NovaUF);
-            return UFs;
+            return Ok(UFs);
         }
 
         [HttpDelete(Name ="EliminaUF")]
-        public IEnumerable<UF> EliminaUF(int DelId)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<UF>> EliminaUF(int DelId)
         {
+            if (DelId == 0)
+            {
+                return BadRequest();
+            }
             UF result = UFs.Find(x => x.Id == DelId);
+            if (result == null)
+            {
+                return NotFound();
+            }
             UFs.Remove(result);
-            return UFs;
+            return Ok(UFs);
         }
     }
 }
