@@ -1,21 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 using Treino_REST_02.Models;
 
 namespace Treino_REST_02.Controllers
 {
-    [Route("api/Operacao")]
-    [ApiController]
-    public class SomaController : ControllerBase
-    {
-
-        [HttpPost(Name = "Soma")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<int> Soma(int A, int B) 
-        {
-            return Ok(A + B);
-        }
-
-    }
 
     [Route("api/ListaUF")]
     [ApiController]
@@ -67,6 +60,41 @@ namespace Treino_REST_02.Controllers
             return Ok(UFs);
         }
 
+        [HttpPut(Name = "Altera")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<UF>> AtualizaUF(int IdUF, string NomeUF, string CapitalUF)
+        {
+            if (IdUF == 0)
+            {
+                return BadRequest();
+            }
+            UF result = UFs.Find(x => x.Id == IdUF);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            result.Nome = NomeUF;
+            result.Capital = CapitalUF;
+            return Ok(result);
+        }
+
+        [HttpPatch(Name = "MudaCapital")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<UF>> MudaCapital(string NomeUF, string NovaCapital)
+        {
+            if (NomeUF == "")
+            {
+                return BadRequest();
+            }
+            UF result = UFs.Find(x => x.Nome == NomeUF);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            result.Capital = NovaCapital;
+            return Ok(result);
+        }
+
         [HttpDelete(Name ="EliminaUF")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -86,4 +114,5 @@ namespace Treino_REST_02.Controllers
             return Ok(UFs);
         }
     }
+
 }

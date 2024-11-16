@@ -1,14 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Treino_REST_02.Models
 {
+    [Table("Capitais")]
     public class UF
     {
-        [Required]
+        [Required] [Column("Id",TypeName = "int")]
+        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required][MaxLength(2)]
+
+        [Required] [Column("UF", TypeName = "char")]
+        [MaxLength(2)] [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public required string Nome { get; set; }
-        [Required][MaxLength(50)]
+
+        [Required] [Column("Capital",TypeName = "varchar")]
+        [MaxLength(50)] [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string? Capital { get; set; }
+
     }
 }
