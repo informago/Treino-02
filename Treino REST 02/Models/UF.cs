@@ -6,6 +6,7 @@ namespace Treino_REST_02.Models
     [Table("Capitais")]
     public class UF
     {
+
         [Required] [Column("Id",TypeName = "int")]
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
