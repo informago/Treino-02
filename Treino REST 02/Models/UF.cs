@@ -12,12 +12,13 @@ namespace Treino_REST_02.Models
         public int Id { get; set; }
 
         [Required] [Column("UF", TypeName = "char")]
-        [MaxLength(2)] [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [MaxLength(2)]
         public required string Nome { get; set; }
 
         [Required] [Column("Capital",TypeName = "varchar")]
-        [MaxLength(50)] [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [MaxLength(50)] 
         public string? Capital { get; set; }
 
     }
+
 }

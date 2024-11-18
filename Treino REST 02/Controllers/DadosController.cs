@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Treino_REST_02.Models;
 
 namespace Treino_REST_02.Controllers
@@ -9,7 +10,13 @@ namespace Treino_REST_02.Controllers
     public class DadosController : ControllerBase
     {
 
+        IConfiguration Config;
         public List<UF> UFs = new List<UF>();
+
+        public DadosController(IConfiguration _config) 
+        {
+            this.Config = _config;
+        }
 
         [HttpGet(Name = "ListaUF-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -31,21 +38,21 @@ namespace Treino_REST_02.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> AdicionaUF(UF NovaUF)
         {
-            return Ok(ListaUF);
+            return ListaUF();
         }
 
         [HttpPut(Name = "Altera-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> AtualizaUF(int IdUF, string NomeUF, string CapitalUF)
         {
-            return Ok(ListaUF);
+            return ListaUF();
         }
 
         [HttpPatch(Name = "MudaCapital-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> MudaCapital(string NomeUF, string NovaCapital)
         {
-            return Ok(ListaUF);
+            return ListaUF();
         }
 
         [HttpDelete(Name = "EliminaUF-Dados")]
@@ -54,7 +61,7 @@ namespace Treino_REST_02.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<UF>> EliminaUF(int DelId)
         {
-            return Ok(ListaUF);
+            return ListaUF();
         }
     }
 }

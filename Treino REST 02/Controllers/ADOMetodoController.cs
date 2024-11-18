@@ -13,14 +13,16 @@ namespace Treino_REST_02.Controllers
     [ApiController]
     public class ADOMetodoController : ControllerBase
     {
+        IConfiguration Config;
         public List<UF> UFs = new List<UF>();
         SqlConnection Cn = new SqlConnection();
         SqlCommand Cm = new SqlCommand();
         SqlDataAdapter DaG = new SqlDataAdapter();
 
-        public ADOMetodoController()
+        public ADOMetodoController(IConfiguration _configuration)
         {
-            Cn.ConnectionString = "Server=localhost;Database=Treino01;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+            Config = _configuration;
+            Cn.ConnectionString = Config.GetConnectionString("cnMain");
             Cm.Connection = Cn;
             DaG.SelectCommand = Cm;
         }
@@ -75,8 +77,14 @@ namespace Treino_REST_02.Controllers
 
         [HttpPost(Name = "Adiciona-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<UF>> AdicionaUF(UF NovaUF)
         {
+            if (NovaUF.Id > 0)
+            {
+                return AtualizaUF(NovaUF.Id, NovaUF.Nome, NovaUF.Capital);
+            }
             Cm.Parameters.Clear();
             Cm.Parameters.Add("@Nome", SqlDbType.Char, 2).Value = NovaUF.Nome;
             Cm.Parameters.Add("@Capital",SqlDbType.VarChar,50).Value = NovaUF.Capital;
@@ -96,6 +104,8 @@ namespace Treino_REST_02.Controllers
 
         [HttpPut(Name = "Altera-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<UF>> AtualizaUF(int IdUF, string NomeUF, string CapitalUF)
         {
             Cm.Parameters.Clear();
@@ -118,6 +128,8 @@ namespace Treino_REST_02.Controllers
 
         [HttpPatch(Name = "MudaCapital-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<UF>> MudaCapital(string NomeUF, string NovaCapital)
         {
             Cm.Parameters.Clear();

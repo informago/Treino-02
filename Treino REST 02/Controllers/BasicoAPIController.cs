@@ -54,14 +54,22 @@ namespace Treino_REST_02.Controllers
 
         [HttpPost(Name ="Adiciona")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<UF>> AdicionaUF(UF NovaUF)
         {
+            if (NovaUF.Id > 0)
+            {
+                return AtualizaUF(NovaUF.Id, NovaUF.Nome, NovaUF.Capital);
+            }
             UFs.Add(NovaUF);
             return Ok(UFs);
         }
 
         [HttpPut(Name = "Altera")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<UF>> AtualizaUF(int IdUF, string NomeUF, string CapitalUF)
         {
             if (IdUF == 0)
@@ -80,6 +88,8 @@ namespace Treino_REST_02.Controllers
 
         [HttpPatch(Name = "MudaCapital")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<UF>> MudaCapital(string NomeUF, string NovaCapital)
         {
             if (NomeUF == "")
