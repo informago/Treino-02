@@ -27,6 +27,10 @@ namespace Treino_REST_02.Controllers
             }
         }
 
+        /// <summary>
+        /// Relação de todas as UFs com suas capitais
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(Name = "Listagem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> ListaUF()
@@ -34,6 +38,17 @@ namespace Treino_REST_02.Controllers
             return Ok(UFs);
         }
 
+        /// <summary>
+        /// Mostra os dados de uma UF específica
+        /// </summary>
+        /// <remarks>
+        /// Caso o id não exista, retora 404 Not Found. Caso id seja zero retorna Bad Request.
+        /// </remarks>
+        /// <example>
+        /// 5
+        /// </example>
+        /// <param name="IdUF">Id da UF que será mostrada</param>
+        /// <returns>Um JSON contendo os dados da UF selecionada.</returns>
         [HttpGet("{IdUF:int}", Name = "MostraUF")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

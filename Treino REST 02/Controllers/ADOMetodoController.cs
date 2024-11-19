@@ -27,7 +27,13 @@ namespace Treino_REST_02.Controllers
             DaG.SelectCommand = Cm;
         }
 
+
+        /// <summary>
+        /// Lista todas as UFs.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(Name = "ListaUF-ADO")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> ListaUF()
         {
