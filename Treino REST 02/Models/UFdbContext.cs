@@ -13,5 +13,4 @@ namespace Treino_REST_02.Models
             optionsBuilder.UseSqlServer(cnStr);
         }
     }
-
 }
