@@ -9,6 +9,9 @@ using Treino_REST_02.Models;
 
 namespace Treino_REST_02.Controllers
 {
+    /// <summary>
+    /// Operações CRUD utilizando ADO.NET.
+    /// </summary>
     [Route("api/ADO")]
     [ApiController]
     public class ADOMetodoController : ControllerBase
@@ -19,6 +22,10 @@ namespace Treino_REST_02.Controllers
         SqlCommand Cm = new SqlCommand();
         SqlDataAdapter DaG = new SqlDataAdapter();
 
+        /// <summary>
+        /// Construtor - Inicia os objetos de acesso a dados
+        /// </summary>
+        /// <param name="_config"></param>
         public ADOMetodoController(IConfiguration _configuration)
         {
             Config = _configuration;
@@ -29,7 +36,7 @@ namespace Treino_REST_02.Controllers
 
 
         /// <summary>
-        /// Lista todas as UFs.
+        /// Relação de todas as UFs com suas capitais
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "ListaUF-ADO")]
@@ -54,6 +61,14 @@ namespace Treino_REST_02.Controllers
             return Ok(ret);
         }
 
+        /// <summary>
+        /// Mostra os dados de uma UF específica
+        /// </summary>
+        /// <remarks>
+        /// Caso o id não exista, retorna 404 Not Found. Caso id seja zero retorna Bad Request.
+        /// </remarks>
+        /// <param name="IdUF">Id da UF que será mostrada</param>
+        /// <returns>Um JSON contendo os dados da UF selecionada.</returns>
         [HttpGet("{IdUF:int}", Name = "MostraUF-ADO")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -81,6 +96,11 @@ namespace Treino_REST_02.Controllers
             return Ok(vUF);
         }
 
+        /// <summary>
+        /// Adiciona uma nova UF à lista
+        /// </summary>
+        /// <param name="NovaUF"></param>
+        /// <returns></returns>
         [HttpPost(Name = "Adiciona-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -108,6 +128,13 @@ namespace Treino_REST_02.Controllers
             return ListaUF();
         }
 
+        /// <summary>
+        /// Altera todos os dados de uma UF baseado em um id
+        /// </summary>
+        /// <param name="IdUF">Id da UF que será alterada</param>
+        /// <param name="NomeUF">Novo nome (sigla) da UF</param>
+        /// <param name="CapitalUF">Novo nome da capital</param>
+        /// <returns></returns>
         [HttpPut(Name = "Altera-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -132,6 +159,12 @@ namespace Treino_REST_02.Controllers
             return ListaUF();
         }
 
+        /// <summary>
+        /// Muda apenas a capital de uma UF baseado no nome da UF
+        /// </summary>
+        /// <param name="NomeUF">Nome da UF (sigla)</param>
+        /// <param name="NovaCapital">Nome da nova capital</param>
+        /// <returns></returns>
         [HttpPatch(Name = "MudaCapital-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -155,6 +188,11 @@ namespace Treino_REST_02.Controllers
             return ListaUF();
         }
 
+        /// <summary>
+        /// Elimina uma UF baseado no id
+        /// </summary>
+        /// <param name="DelId">Id da UF que será eliminada</param>
+        /// <returns></returns>
         [HttpDelete(Name = "EliminaUF-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
