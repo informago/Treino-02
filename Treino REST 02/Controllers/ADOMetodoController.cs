@@ -38,15 +38,26 @@ namespace Treino_REST_02.Controllers
         /// <summary>
         /// Relação de todas as UFs com suas capitais
         /// </summary>
+        /// <remarks>
+        /// Também deve ser utilizado para verificar se a conexão está ativa.
+        /// </remarks>
         /// <returns></returns>
         [HttpGet(Name = "ListaUF-ADO")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<IEnumerable<UF>> ListaUF()
         {
+            try
+            {
+                Cn.Open();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
             List<UF> ret = new List<UF>();
             Cm.CommandText = "SELECT Id, UF, Capital FROM Capitais ORDER BY Id";
-            Cn.Open();
             SqlDataReader rd = Cm.ExecuteReader();
             while (rd.Read())
             {
@@ -57,7 +68,6 @@ namespace Treino_REST_02.Controllers
                 ret.Add(vUF);
             }
             Cn.Close();
-
             return Ok(ret);
         }
 
@@ -214,6 +224,5 @@ namespace Treino_REST_02.Controllers
             }
             return ListaUF();
         }
-
     }
 }

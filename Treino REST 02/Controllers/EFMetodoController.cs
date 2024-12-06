@@ -49,11 +49,19 @@ namespace Treino_REST_02.Controllers
         /// <summary>
         /// Lista todas as UFs do banco de dados
         /// </summary>
+        /// <remarks>
+        /// Também deve ser utilizado para verificar se a conexão está ativa.
+        /// </remarks>
         /// <returns></returns>
         [HttpGet(Name = "ListaUF-EF")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status408RequestTimeout)]
         public ActionResult<IEnumerable<UF>> ListaUF()
         {
+            if (!dbUF.Database.CanConnect()) 
+            {
+                return StatusCode(StatusCodes.Status408RequestTimeout);
+            }
             return Ok(dbUF.UFs.ToList());
         }
 
