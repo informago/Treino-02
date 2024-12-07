@@ -12,7 +12,7 @@ namespace Treino_REST_02.Controllers
     /// <summary>
     /// Operações CRUD utilizando ADO.NET.
     /// </summary>
-    [Route("api/ADO")]
+    [Route("UFs/ADO")]
     [ApiController]
     public class ADOMetodoController : ControllerBase
     {
@@ -42,7 +42,7 @@ namespace Treino_REST_02.Controllers
         /// Também deve ser utilizado para verificar se a conexão está ativa.
         /// </remarks>
         /// <returns></returns>
-        [HttpGet(Name = "ListaUF-ADO")]
+        [HttpGet("ListaUF", Name = "ListaUF-ADO")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -79,7 +79,7 @@ namespace Treino_REST_02.Controllers
         /// </remarks>
         /// <param name="IdUF">Id da UF que será mostrada</param>
         /// <returns>Um JSON contendo os dados da UF selecionada.</returns>
-        [HttpGet("{IdUF:int}", Name = "MostraUF-ADO")]
+        [HttpGet("MostraUF/{IdUF:int}", Name = "MostraUF-ADO")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -111,7 +111,7 @@ namespace Treino_REST_02.Controllers
         /// </summary>
         /// <param name="NovaUF"></param>
         /// <returns></returns>
-        [HttpPost(Name = "Adiciona-ADO")]
+        [HttpPost("AdicionaUF", Name = "Adiciona-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -145,7 +145,7 @@ namespace Treino_REST_02.Controllers
         /// <param name="NomeUF">Novo nome (sigla) da UF</param>
         /// <param name="CapitalUF">Novo nome da capital</param>
         /// <returns></returns>
-        [HttpPut(Name = "Altera-ADO")]
+        [HttpPut("AtualizaUF", Name = "Altera-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -175,7 +175,7 @@ namespace Treino_REST_02.Controllers
         /// <param name="NomeUF">Nome da UF (sigla)</param>
         /// <param name="NovaCapital">Nome da nova capital</param>
         /// <returns></returns>
-        [HttpPatch(Name = "MudaCapital-ADO")]
+        [HttpPatch("MudaCapital", Name = "MudaCapital-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -203,7 +203,7 @@ namespace Treino_REST_02.Controllers
         /// </summary>
         /// <param name="DelId">Id da UF que será eliminada</param>
         /// <returns></returns>
-        [HttpDelete(Name = "EliminaUF-ADO")]
+        [HttpDelete("EliminaUF", Name = "EliminaUF-ADO")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -13,7 +13,7 @@ namespace Treino_REST_02.Controllers
     /// <summary>
     /// Exemplo de operações com objeto em memória.
     /// </summary>
-    [Route("api/ListaUF")]
+    [Route("UFs/Memoria")]
     [ApiController]
     public class ListaUFController : ControllerBase
     {
@@ -37,7 +37,7 @@ namespace Treino_REST_02.Controllers
         /// Relação de todas as UFs com suas capitais
         /// </summary>
         /// <returns></returns>
-        [HttpGet(Name = "Listagem")]
+        [HttpGet("ListaUF", Name = "Listagem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> ListaUF()
         {
@@ -52,7 +52,7 @@ namespace Treino_REST_02.Controllers
         /// </remarks>
         /// <param name="IdUF">Id da UF que será mostrada</param>
         /// <returns>Um JSON contendo os dados da UF selecionada.</returns>
-        [HttpGet("{IdUF:int}", Name = "MostraUF")]
+        [HttpGet("MostraUF/{IdUF:int}", Name = "MostraUF")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -75,7 +75,7 @@ namespace Treino_REST_02.Controllers
         /// </summary>
         /// <param name="NovaUF"></param>
         /// <returns></returns>
-        [HttpPost(Name ="Adiciona")]
+        [HttpPost("AdicionaUF", Name ="Adiciona")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -96,7 +96,7 @@ namespace Treino_REST_02.Controllers
         /// <param name="NomeUF">Novo nome (sigla) da UF</param>
         /// <param name="CapitalUF">Novo nome da capital</param>
         /// <returns></returns>
-        [HttpPut(Name = "Altera")]
+        [HttpPut("AtualizaUF", Name = "Altera")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -122,7 +122,7 @@ namespace Treino_REST_02.Controllers
         /// <param name="NomeUF">Nome da UF (sigla)</param>
         /// <param name="NovaCapital">Nome da nova capital</param>
         /// <returns></returns>
-        [HttpPatch(Name = "MudaCapital")]
+        [HttpPatch("MudaCapital", Name = "MudaCapital")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -146,7 +146,7 @@ namespace Treino_REST_02.Controllers
         /// </summary>
         /// <param name="DelId">Id da UF que será eliminada</param>
         /// <returns></returns>
-        [HttpDelete(Name ="EliminaUF")]
+        [HttpDelete("EliminaUF", Name ="EliminaUF")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

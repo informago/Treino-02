@@ -8,7 +8,7 @@ namespace Treino_REST_02.Controllers
     /// <summary>
     /// Esqueleto para realizar operações CRUD.
     /// </summary>
-    [Route("api/Dados")]
+    [Route("UFs/Dados")]
     [ApiController]
     public class DadosController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace Treino_REST_02.Controllers
         /// Relação de todas as UFs com suas capitais
         /// </summary>
         /// <returns></returns>
-        [HttpGet(Name = "ListaUF-Dados")]
+        [HttpGet("ListaIF", Name = "ListaUF-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> ListaUF()
         {
@@ -44,7 +44,7 @@ namespace Treino_REST_02.Controllers
         /// </remarks>
         /// <param name="IdUF">Id da UF que será mostrada</param>
         /// <returns>Um JSON contendo os dados da UF selecionada.</returns>
-        [HttpGet("{IdUF:int}", Name = "MostraUF-Dados")]
+        [HttpGet("MostraUF/{IdUF:int}", Name = "MostraUF-Dados")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,7 +58,7 @@ namespace Treino_REST_02.Controllers
         /// </summary>
         /// <param name="NovaUF"></param>
         /// <returns></returns>
-        [HttpPost(Name = "Adiciona-Dados")]
+        [HttpPost("AdicionaUF", Name = "Adiciona-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> AdicionaUF(UF NovaUF)
         {
@@ -72,7 +72,7 @@ namespace Treino_REST_02.Controllers
         /// <param name="NomeUF">Novo nome (sigla) da UF</param>
         /// <param name="CapitalUF">Novo nome da capital</param>
         /// <returns></returns>
-        [HttpPut(Name = "Altera-Dados")]
+        [HttpPut("AtualizaUF", Name = "Altera-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> AtualizaUF(int IdUF, string NomeUF, string CapitalUF)
         {
@@ -85,7 +85,7 @@ namespace Treino_REST_02.Controllers
         /// <param name="NomeUF">Nome da UF (sigla)</param>
         /// <param name="NovaCapital">Nome da nova capital</param>
         /// <returns></returns>
-        [HttpPatch(Name = "MudaCapital-Dados")]
+        [HttpPatch("MudaCapital", Name = "MudaCapital-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> MudaCapital(string NomeUF, string NovaCapital)
         {
@@ -97,7 +97,7 @@ namespace Treino_REST_02.Controllers
         /// </summary>
         /// <param name="DelId">Id da UF que será eliminada</param>
         /// <returns></returns>
-        [HttpDelete(Name = "EliminaUF-Dados")]
+        [HttpDelete("EliminaUF", Name = "EliminaUF-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
