@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Treino_REST_02.Models;
@@ -30,19 +33,43 @@ builder.Services.AddSwaggerGen(opts =>
             Url = new Uri("https://www.larsoft.com.br/institucional/seguranca/")
         }
     });
+    opts.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+        Name = "Authorization",
+        Description = "Token must be provided.",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        BearerFormat =  "JWT",
+        Scheme = "Bearer"
+    });
+    opts.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     opts.IncludeXmlComments(xmlPath, true);
 });
 
+builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+builder.Services.AddAuthorizationBuilder();
+builder.Services.AddDbContext<UsuarioDbContext>(opt => opt.UseSqlServer());
+builder.Services.AddIdentityCore<Usuario>()
+    .AddEntityFrameworkStores<UsuarioDbContext>()
+    .AddApiEndpoints();
+
 var app = builder.Build();
-// Configure the HTTP request pipeline.
-/*if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-*/
+
+app.MapGroup("Autenticacao").MapIdentityApi<Usuario>();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -61,3 +88,4 @@ app.UseDefaultFiles(new DefaultFilesOptions
 app.UseStaticFiles();
 
 app.Run();
+

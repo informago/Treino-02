@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -37,7 +38,7 @@ namespace Treino_REST_02.Controllers
         /// Relação de todas as UFs com suas capitais
         /// </summary>
         /// <returns></returns>
-        [HttpGet("ListaUF", Name = "Listagem")]
+        [HttpGet("ListaUF", Name = "Listagem"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> ListaUF()
         {
@@ -52,7 +53,7 @@ namespace Treino_REST_02.Controllers
         /// </remarks>
         /// <param name="IdUF">Id da UF que será mostrada</param>
         /// <returns>Um JSON contendo os dados da UF selecionada.</returns>
-        [HttpGet("MostraUF/{IdUF:int}", Name = "MostraUF")]
+        [HttpGet("MostraUF/{IdUF:int}", Name = "MostraUF"), Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

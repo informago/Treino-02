@@ -29,7 +29,7 @@ namespace Treino_REST_02.Controllers
         /// Relação de todas as UFs com suas capitais
         /// </summary>
         /// <returns></returns>
-        [HttpGet("ListaIF", Name = "ListaUF-Dados")]
+        [HttpGet("ListaUF", Name = "ListaUF-Dados")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UF>> ListaUF()
         {
