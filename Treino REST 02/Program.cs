@@ -61,7 +61,7 @@ builder.Services.AddSwaggerGen(opts =>
 
 builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
 builder.Services.AddAuthorizationBuilder();
-builder.Services.AddDbContext<UsuarioDbContext>(opt => opt.UseSqlServer());
+builder.Services.AddDbContext<UsuarioDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("cnExt")));
 builder.Services.AddIdentityCore<Usuario>()
     .AddEntityFrameworkStores<UsuarioDbContext>()
     .AddApiEndpoints();
@@ -71,7 +71,10 @@ var app = builder.Build();
 app.MapGroup("Autenticacao").MapIdentityApi<Usuario>();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.InjectStylesheet("/swagger-ui/swagger-custom.css");
+});
 
 
 app.UseHttpsRedirection();
